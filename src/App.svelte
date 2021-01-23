@@ -1,8 +1,14 @@
 <script lang="ts">
-  //
+  import Window from './Window.svelte';
+  import TitleBar from './TitleBar.svelte';
+  import Main from './Main.svelte';
+  import Footer from './Footer.svelte';
 </script>
 
-<main>
-  <h1>Defrag</h1>
-  <p>Hello, world!</p>
-</main>
+<div class="p-2 w-full h-full">
+  <Window>
+    <TitleBar />
+    <Main />
+    <Footer />
+  </Window>
+</div>
