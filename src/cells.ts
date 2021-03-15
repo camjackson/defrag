@@ -1,9 +1,49 @@
+import { randomRange, sum } from './util';
+
 export enum CellState {
   Normal,
   Immovable,
 }
 
-export const buildCells = (count: number): CellState[] => {
+export type CellData = {
+  cells: CellState[];
+  cellWidth: number;
+  cellHeight: number;
+};
+
+export const defaultCellData: CellData = {
+  cells: [],
+  cellWidth: 0,
+  cellHeight: 0,
+};
+
+export const getCellData = (
+  currentCellData: CellData = defaultCellData,
+  windowWidth: number,
+  windowHeight: number,
+): CellData => {
+  if (currentCellData.cells.length > 0) {
+    return currentCellData;
+  }
+
+  if (!windowWidth || !windowHeight) {
+    return currentCellData;
+  }
+
+  const idealCellWidth = 10;
+  const idealCellHeight = 14;
+
+  const numberOfColumns = Math.floor(windowWidth / idealCellWidth);
+  const numberOfRows = Math.floor(windowHeight / idealCellHeight);
+  const numberOfCells = numberOfColumns * numberOfRows;
+
+  const cellWidth = windowWidth / numberOfColumns;
+  const cellHeight = windowHeight / numberOfRows;
+
+  return { cells: buildCells(numberOfCells), cellWidth, cellHeight };
+};
+
+const buildCells = (count: number): CellState[] => {
   const cells = [];
 
   for (let i = 0; i < count; i++) {
@@ -53,13 +93,4 @@ const findSpaceForRun = (cells: CellState[], runLength: number): number => {
   } while (index === null);
 
   return index;
-};
-
-const sum = (numbers: number[]) =>
-  numbers.reduce((total, num) => total + num, 0);
-
-const randomRange = (min: number, max: number): number => {
-  const range = max - min;
-
-  return Math.floor(Math.random() * range) + min;
 };

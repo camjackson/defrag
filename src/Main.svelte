@@ -1,42 +1,6 @@
 <script lang="ts">
-  import { buildCells, CellState } from './cells';
-
-  type CellData = {
-    cells: CellState[];
-    cellWidth: number;
-    cellHeight: number;
-  };
-  const defaultCellData: CellData = {
-    cells: [],
-    cellWidth: 0,
-    cellHeight: 0,
-  };
-
-  const getCellData = (
-    currentCellData: CellData = defaultCellData,
-    windowWidth: number,
-    windowHeight: number,
-  ): CellData => {
-    if (currentCellData.cells.length > 0) {
-      return currentCellData;
-    }
-
-    if (!windowWidth || !windowHeight) {
-      return currentCellData;
-    }
-
-    const idealCellWidth = 10;
-    const idealCellHeight = 14;
-
-    const numberOfColumns = Math.floor(w / idealCellWidth);
-    const numberOfRows = Math.floor(h / idealCellHeight);
-    const numberOfCells = numberOfColumns * numberOfRows;
-
-    const cellWidth = w / numberOfColumns;
-    const cellHeight = h / numberOfRows;
-
-    return { cells: buildCells(numberOfCells), cellWidth, cellHeight };
-  };
+  import { CellState, getCellData } from './cells';
+  import type { CellData } from './cells';
 
   let w: number;
   let h: number;
