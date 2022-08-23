@@ -2,13 +2,12 @@
   import { CellState, getCellData } from './cells';
   import type { CellData } from './cells';
 
-  let w: number;
-  let h: number;
+  export let height: number;
+  export let width: number;
 
   let cellData: CellData;
-  $: cellData = getCellData(cellData, w, h);
+  $: cellData = getCellData(cellData, width, height);
   $: cellStyle = `
-    margin: 0 1px;
     width: ${cellData.cellWidth - 2}px;
     height: ${cellData.cellHeight - 2}px;
   `;
@@ -20,12 +19,14 @@
 </script>
 
 <style>
+  main {
+    grid-template-columns: repeat(71, 8px);
+    column-gap: 1px;
+    row-gap: 1px;
+  }
 </style>
 
-<main
-  bind:clientWidth="{w}"
-  bind:clientHeight="{h}"
-  class="bg-white flex-grow leading-none">
+<main style="height: {height}px;" class="bg-white overflow-y-scroll grid">
   {#each cellData.cells as cell}
     <span
       style="{cellStyle}"

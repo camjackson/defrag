@@ -1,5 +1,11 @@
+<script lang="ts">
+  export let contentWidth: number;
+  export let contentHeight: number;
+</script>
+
 <div
-  class="w-full h-full border border-gray-700 bg-window-grey shadow-2xl flex flex-col">
+  style="width: {contentWidth}px; height: {contentHeight}px;"
+  class="box-content border border-gray-700 bg-window-grey shadow-2xl">
   <slot />
 </div>
 
